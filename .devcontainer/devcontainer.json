@@ -1,4 +1,4 @@
-// Update the VARIANT arg in docker-compose.yml to pick a Node.js version
+// The patched Node.js version is selected explicitly in .devcontainer/Dockerfile.
 {
 	"name": "Activepieces Dev",
 	"dockerComposeFile": "docker-compose.yml",

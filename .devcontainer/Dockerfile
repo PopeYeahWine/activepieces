@@ -1,13 +1,16 @@
-# [Choice] Node.js version (use -bullseye variants on local arm64/Apple Silicon): 20, 18, 16, 14, 20-bullseye, 18-bullseye, 16-bullseye, 14-bullseye, 20-buster, 18-buster, 16-buster, 14-buster
-ARG VARIANT=20-bullseye
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
+# Microsoft development tools retained; effective Node patch selected explicitly.
+FROM mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm@sha256:0d29e5fdc64f8397cd502223e0c4679f1e60877ca0fd2db4f2e2e0028e4271af
+
+ENV NODE_VERSION=22.23.4
+RUN su node -c ". /usr/local/share/nvm/nvm.sh && nvm install 22.23.4 && nvm alias default 22.23.4 && nvm uninstall 22.16.0 && nvm cache clear"
+ENV PATH="/usr/local/share/nvm/versions/node/v22.23.4/bin:${PATH}"
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
 # [Optional] Uncomment if you want to install an additional version of node using nvm
-# ARG EXTRA_NODE_VERSION=10
+# ARG EXTRA_NODE_VERSION=22.23.4
 # RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
 
 # [Optional] Uncomment if you want to install more global node modules
